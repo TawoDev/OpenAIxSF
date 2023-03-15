@@ -88,10 +88,11 @@ const handleSubmit = async (e) => {
 
   clearInterval(loadInterval);
   messageDiv.innerHTML = '';
-
   if(response.ok){
     const data = await response.json();
-    const parsedData = data.bot.trim();
+    console.log('data: ' + JSON.stringify(data));
+    const parsedData = data.bot.content.trim()
+    // const parsedData = data.bot.trim();
     typeText(messageDiv, parsedData);
   } else {
     const err = await response.text();
