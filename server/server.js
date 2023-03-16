@@ -26,7 +26,23 @@ app.post('/', async (req, res) => {
         const prompt = req.body.prompt;
         const response = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            messages: [{role: "user", content: `${prompt}`}],
+            messages: [
+                {role: "system", content: `You are a helpful customer representative at JFF Ltd and you are JFF.`},
+                {role: "user", content: `
+                    - Provide industry news
+                    - Provide local news
+                    - Provide local weather information
+                    - Funny tone
+                    - With Emoji
+
+                    Client information:
+                    Name: GenePoint
+                    Industry: Biotechnology
+                    Address: 345 Shoreline Park, Mountain View, CA 94043, USA
+                    Description: Genomics company engaged in mapping and sequencing of the human genome and developing gene-based drugs
+                    ` 
+                    + `${prompt}`}
+            ],
             temperature: 0.3,
             max_tokens: 3000,
           });
